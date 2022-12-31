@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { CallProvider } from '@custom/shared/contexts/CallProvider';
 import { MediaDeviceProvider } from '@custom/shared/contexts/MediaDeviceProvider';
 import { ParticipantsProvider } from '@custom/shared/contexts/ParticipantsProvider';
@@ -33,11 +33,11 @@ export default function Index({
   customTrayComponent,
   customAppComponent,
 }) {
-  const [roomName, setRoomName] = useState();
+  const [roomName, setRoomName] = useState('event_13');
   const [fetchingToken, setFetchingToken] = useState(false);
   const [token, setToken] = useState();
   const [tokenError, setTokenError] = useState();
-
+ 
   const getMeetingToken = useCallback(async (room, isOwner = false) => {
     if (!room) {
       return false;

@@ -1,6 +1,7 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import ExpiryTimer from '@custom/shared/components/ExpiryTimer';
 import { useCallState } from '@custom/shared/contexts/CallProvider';
+import { useParticipants } from '@custom/shared/contexts/ParticipantsProvider';
 import { useCallUI } from '@custom/shared/hooks/useCallUI';
 
 import PropTypes from 'prop-types';
@@ -10,6 +11,7 @@ import { Modals } from './Modals';
 
 export const App = ({ customComponentForState }) => {
   const { roomExp, state } = useCallState();
+  const {allParticipants, participantCount, participants} = useParticipants()
 
   const componentForState = useCallUI({
     state,
@@ -17,6 +19,11 @@ export const App = ({ customComponentForState }) => {
     ...customComponentForState,
   });
 
+  useEffect(() => {
+    console.log('HOOKS', {allParticipants, participantCount, participants})
+    }, [allParticipants, participantCount, participants])
+
+    
   // Memoize children to avoid unnecessary renders from HOC
   return useMemo(
     () => (
